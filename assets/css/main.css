@@ -3760,43 +3760,90 @@ input, select, textarea {
 
 		}
 
-/* Education Table */
-.education-table-wrapper {
-    margin: 0 auto;
-    max-width: 100%;
-    overflow-x: auto;
+/* Education Section */
+.education-section {
+    width: 100%;
 }
 
-.education-table {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
+.education-section .table-wrapper {
+    margin: 0;
+    background: #1a1f35;  /* พื้นหลังสีน้ำเงินเข้ม */
+    border-radius: 10px;
     overflow: hidden;
+}
+
+.education-section table {
+    margin: 0;
     border-collapse: collapse;
 }
 
-.education-table th {
-    background: rgba(76, 92, 150, 0.2);
-    color: #ffffff;
+.education-section table th {
+    color: #e6e6e6;  /* สีเทาอ่อน */
     font-weight: 600;
+    font-size: 1.1em;
+    letter-spacing: 0.05em;
+    background: #2c3654;  /* พื้นหลังสีน้ำเงินกลาง */
+    border-bottom: 2px solid #3d4b75;
     text-align: left;
     padding: 1em;
+    text-transform: uppercase;
 }
 
-.education-table td {
-    padding: 0.8em 1em;
-    color: #ffffff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.education-section table td {
+    padding: 1em;
+    vertical-align: middle;
+    border-bottom: solid 1px #2c3654;
+    color: #b3b3b3;  /* สีเทากลาง */
+    font-size: 1em;
+    line-height: 1.4;
+    font-weight: 400;
 }
 
-.education-table tr:hover {
-    background: rgba(255, 255, 255, 0.05);
+.education-section table td:first-child {
+    color: #8bb8e8;  /* สีฟ้าอ่อนนวล */
+    font-weight: 500;
+}
+
+.education-section table td:nth-child(2) {
+    color: #e8b88b;  /* สีส้มอ่อนนวล */
+    font-weight: 500;
+}
+
+.education-section table td:nth-child(5) {
+    color: #8bc4e8;  /* สีฟ้าอมเทา */
+    font-weight: 500;
+}
+
+.education-section table td:last-child {
+    color: #90c695;  /* สีเขียวอ่อนนวล */
+    font-weight: 500;
+}
+
+.education-section table tbody tr:hover {
+    background-color: #232942;  /* สีน้ำเงินเข้มเมื่อ hover */
+    transition: background-color 0.2s ease;
+}
+
+.education-section table tbody tr {
+    border: solid 1px rgba(255, 255, 255, 0.08);
+    border-left: 0;
+    border-right: 0;
+    transition: all 0.3s ease;
+}
+
+.education-section table tbody tr:hover {
+    background-color: rgba(124, 185, 232, 0.08);
+    transform: translateX(5px);
 }
 
 @media screen and (max-width: 736px) {
-    .education-table th,
-    .education-table td {
-        padding: 0.5em;
+    .education-section table th {
+        padding: 0.75em;
+        font-size: 0.95em;
+    }
+    
+    .education-section table td {
+        padding: 0.75em;
         font-size: 0.9em;
     }
 }
