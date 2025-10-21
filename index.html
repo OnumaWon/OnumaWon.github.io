@@ -6,57 +6,345 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* Global section adjustments */
+			#main {
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+			}
+			section.main {
+				min-height: 100vh;
+				padding: 4em 2em;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+				overflow: hidden;
+			}
+			/* Compact sections for one-page content */
+			section.main.compact {
+				min-height: 90vh;
+				padding: 3em 2em;
+				justify-content: center;
+			}
+			section.main.compact .content {
+				max-width: 1200px;
+				padding: 2em;
+			}
+			/* Extended sections for two-page content */
+			section.main.extended {
+				min-height: 120vh;
+				padding: 4em 2em;
+			}
+			section.main.extended .content {
+				max-width: 1400px;
+				padding: 2.5em;
+			}
+			/* Content containers */
+			.content {
+				max-width: 1300px;
+				margin: 0 auto;
+				width: 100%;
+				background: rgba(255, 255, 255, 0.95);
+				border-radius: 15px;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+			}
+			/* Section headers */
+			section.main header.major {
+				margin-bottom: 2em;
+				text-align: center;
+			}
+			.section-title {
+				color: #2c3e50;
+				font-weight: bold;
+				font-size: 2.2em;
+				text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+				margin-bottom: 0.5em;
+				letter-spacing: 0.02em;
+			}
+			.section-subtitle {
+				color: #2c3e50;
+				font-weight: bold;
+				font-size: 1.6em;
+				margin-bottom: 0.8em;
+			}
+			/* Scroll indicators for extended sections */
+			section.main.extended::after {
+				content: '';
+				position: absolute;
+				bottom: 2em;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 40px;
+				height: 40px;
+				background: rgba(255, 255, 255, 0.9);
+				border-radius: 50%;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				animation: bounce 2s infinite;
+			}
+			@keyframes bounce {
+				0%, 20%, 50%, 80%, 100% {
+					transform: translateY(0);
+				}
+				40% {
+					transform: translateY(-10px);
+				}
+				60% {
+					transform: translateY(-5px);
+				}
+			}
+			/* Responsive adjustments */
+			@media screen and (min-width: 1681px) {
+				section.main.compact .content {
+					max-width: 1400px;
+				}
+				section.main.extended .content {
+					max-width: 1600px;
+				}
+			}
+			@media screen and (max-width: 1680px) {
+				.content {
+					max-width: 1200px;
+				}
+				section.main {
+					padding: 3em 1.5em;
+				}
+			}
+			@media screen and (max-width: 1280px) {
+				.content {
+					max-width: 960px;
+					padding: 1.5em;
+				}
+				.section-title {
+					font-size: 2em;
+				}
+			}
+			@media screen and (max-width: 736px) {
+				section.main {
+					padding: 2em 1em;
+					min-height: auto;
+				}
+				section.main.compact,
+				section.main.extended {
+					padding: 2em 1em;
+				}
+				.content {
+					padding: 1em;
+					border-radius: 10px;
+				}
+				.section-title {
+					font-size: 1.8em;
+				}
+			}
+			}
+			.major h2 {
+				color: #2c3e50 !important;
+			}
+			#nav ul li a {
+				transition: all 0.3s ease;
+				position: relative;
+				font-weight: 600;
+			}
+			#nav ul li a::after {
+				content: '';
+				position: absolute;
+				bottom: -2px;
+				left: 0;
+				width: 100%;
+				height: 3px;
+				transform: scaleX(0);
+				transition: transform 0.3s ease;
+			}
+			#nav ul li a:hover::after {
+				transform: scaleX(1);
+			}
+			/* Personal tab */
+			#nav ul li a[href="#personal"] {
+				color: #4b93db;
+			}
+			#nav ul li a[href="#personal"]::after {
+				background: #4b93db;
+			}
+			#nav ul li a[href="#personal"]:hover,
+			#nav ul li a[href="#personal"].active {
+				color: #4b93db;
+				text-shadow: 0 0 8px rgba(75, 147, 219, 0.3);
+			}
+			/* Contact tab */
+			#nav ul li a[href="#contact"] {
+				color: #00b894;
+			}
+			#nav ul li a[href="#contact"]::after {
+				background: #00b894;
+			}
+			#nav ul li a[href="#contact"]:hover,
+			#nav ul li a[href="#contact"].active {
+				color: #00b894;
+				text-shadow: 0 0 8px rgba(0, 184, 148, 0.3);
+			}
+			/* Education tab */
+			#nav ul li a[href="#education"] {
+				color: #2c3e50;
+			}
+			#nav ul li a[href="#education"]::after {
+				background: #2c3e50;
+			}
+			#nav ul li a[href="#education"]:hover,
+			#nav ul li a[href="#education"].active {
+				color: #2c3e50;
+				text-shadow: 0 0 8px rgba(44, 62, 80, 0.3);
+			}
+			/* Work Experience tab */
+			#nav ul li a[href="#experience"] {
+				color: #845ef7;
+			}
+			#nav ul li a[href="#experience"]::after {
+				background: #845ef7;
+			}
+			#nav ul li a[href="#experience"]:hover,
+			#nav ul li a[href="#experience"].active {
+				color: #845ef7;
+				text-shadow: 0 0 8px rgba(132, 94, 247, 0.3);
+			}
+			/* Professional Activity tab */
+			#nav ul li a[href="#activity"] {
+				color: #e64980;
+			}
+			#nav ul li a[href="#activity"]::after {
+				background: #e64980;
+			}
+			#nav ul li a[href="#activity"]:hover,
+			#nav ul li a[href="#activity"].active {
+				color: #e64980;
+				text-shadow: 0 0 8px rgba(230, 73, 128, 0.3);
+			}
+			/* Presentation tab */
+			#nav ul li a[href="#presentation"] {
+				color: #3498db;
+			}
+			#nav ul li a[href="#presentation"]::after {
+				background: #3498db;
+			}
+			#nav ul li a[href="#presentation"]:hover,
+			#nav ul li a[href="#presentation"].active {
+				color: #3498db;
+				text-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 		<!-- Wrapper -->
 		<div id="wrapper">
 			<!-- Header -->
 			<header id="header" class="alt">
-				<span class="image"><img src="images/Onuma pic_Nurse.jpg" alt="Onuma Wongpanich" style="max-width: 200px; margin-bottom: 1em;" /></span>
-				<h1>Curriculum Vitae</h1>
 			</header>
 
 			<!-- Nav -->
 			<nav id="nav">
+				<style>
+					#nav ul li a i {
+						margin-right: 0.5em;
+						font-size: 0.9em;
+						opacity: 0.9;
+						transition: transform 0.3s ease;
+					}
+					#nav ul li a:hover i {
+						transform: scale(1.1);
+					}
+				</style>
 				<ul>
-					<li><a href="#personal" class="active">Personal</a></li>
-					<li><a href="#contact">Contact</a></li>
-					<li><a href="#education">Education</a></li>
-					<li><a href="#experience">Work Experience</a></li>
-					<li><a href="#activity">Professional Activity</a></li>
-					<li><a href="#presentation">Presentation</a></li>
+					<li><a href="#personal" class="active"><i class="fas fa-user"></i>Personal</a></li>
+					<li><a href="#contact"><i class="fas fa-envelope"></i>Contact</a></li>
+					<li><a href="#education"><i class="fas fa-graduation-cap"></i>Education</a></li>
+					<li><a href="#experience"><i class="fas fa-briefcase"></i>Work Experience</a></li>
+					<li><a href="#activity"><i class="fas fa-tasks"></i>Professional Activity</a></li>
+					<li><a href="#presentation"><i class="fas fa-chalkboard-teacher"></i>Presentation</a></li>
 				</ul>
 			</nav>
 
 			<!-- Main -->
 			<div id="main">
 				<!-- Personal -->
-				<section id="personal" class="main">
+				<section id="personal" class="main compact">
 					<header class="major">
 						<span class="icon solid fa-user" style="font-size: 2em; width: 2em; height: 2em; line-height: 2em; background: #4b93db; color: white; border-radius: 50%; margin: 0 auto;"></span>
-						<h2>Personal Information</h2>
+						<h2 class="section-title">Personal Information</h2>
 					</header>
-					<div class="content spotlight style1" style="text-align: left;">
-						<div class="inner">
-							<dl>
-								<dt style="color: #4b93db; font-weight: bold;">Name:</dt>
-								<dd>Onuma Wongpanich M.S.N (นางสาวอรอุมา วงษ์พานิช)</dd>
-								
-								<dt style="color: #4b93db; font-weight: bold;">Date of Birth:</dt>
-								<dd>July 20, 1980 (20 กรกฎาคม 2523)</dd>
-								
-								<dt style="color: #4b93db; font-weight: bold;">Position:</dt>
-								<dd>Deputy Manager of Nursing Division, Bangkok Hospital Phuket, Thailand (รองผู้จัดการฝ่ายการพยาบาล)</dd>
-								
-								<dt style="color: #4b93db; font-weight: bold;">Current Workplace:</dt>
-								<dd>Bangkok Hospital Phuket, Phuket, Thailand (Apr 4, 2011 – Present)</dd>
-							</dl>
+					<style>
+						.profile-container {
+							display: flex;
+							align-items: flex-start;
+							gap: 2em;
+							margin-bottom: 2em;
+						}
+						.profile-image {
+							flex: 0 0 auto;
+							width: 250px;
+							border-radius: 10px;
+							box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+							border: 3px solid #fff;
+							transition: transform 0.3s ease, box-shadow 0.3s ease;
+						}
+						.profile-image:hover {
+							transform: translateY(-5px);
+							box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+						}
+						.profile-info {
+							flex: 1;
+						}
+						.profile-info dl {
+							margin: 0;
+						}
+						.profile-info dt {
+							color: #4b93db;
+							font-weight: bold;
+							margin-top: 1em;
+						}
+						.profile-info dd {
+							margin-left: 0;
+							line-height: 1.6;
+						}
+						@media screen and (max-width: 736px) {
+							.profile-container {
+								flex-direction: column;
+								align-items: center;
+								text-align: center;
+							}
+							.profile-image {
+								margin-bottom: 1.5em;
+							}
+							.profile-info {
+								width: 100%;
+							}
+						}
+					</style>
+					<div class="content spotlight style1">
+						<div class="profile-container">
+							<img src="images/Onuma pic_Nurse.jpg" alt="Onuma Wongpanich" class="profile-image">
+							<div class="profile-info">
+								<dl>
+									<dt>Name:</dt>
+									<dd>Onuma Wongpanich M.S.N (นางสาวอรอุมา วงษ์พานิช)</dd>
+									
+									<dt>Date of Birth:</dt>
+									<dd>July 20, 1980 (20 กรกฎาคม 2523)</dd>
+									
+									<dt>Position:</dt>
+									<dd>Deputy Manager of Nursing Division, Bangkok Hospital Phuket, Thailand (รองผู้จัดการฝ่ายการพยาบาล)</dd>
+									
+									<dt>Current Workplace:</dt>
+									<dd>Bangkok Hospital Phuket, Phuket, Thailand (Apr 4, 2011 – Present)</dd>
+								</dl>
+							</div>
 						</div>
 					</div>
 				</section>
 
 				<!-- Contact -->
-				<section id="contact" class="main style2">
+				<section id="contact" class="main style2 compact">
 					<header class="major">
 						<span class="icon solid fa-address-card" style="font-size: 2em; width: 2em; height: 2em; line-height: 2em; background: #43c59e; color: white; border-radius: 50%; margin: 0 auto;"></span>
 						<h2>Contact Information</h2>
@@ -93,51 +381,200 @@
 				<!-- Education -->
 				<section id="education" class="main style3">
 					<header class="major">
-						<span class="icon solid fa-graduation-cap" style="font-size: 2em; width: 2em; height: 2em; line-height: 2em; background: #ff6b6b; color: white; border-radius: 50%; margin: 0 auto;"></span>
-						<h2>Education</h2>
+						<span class="icon solid fa-graduation-cap" style="font-size: 2em; width: 2em; height: 2em; line-height: 2em; background: #364f6b; color: white; border-radius: 50%; margin: 0 auto; box-shadow: 0 4px 8px rgba(54,79,107,0.2);"></span>
+						<h2 class="section-title">Education</h2>
+						<p class="section-subtitle">Academic Background and Qualifications</p>
 					</header>
+					<div class="content">
+						<style>
+						.education-grid {
+							display: grid;
+							gap: 2em;
+							max-width: 1200px;
+							margin: 0 auto;
+							padding: 1em;
+						}
+						.education-item {
+							background: white;
+							border-radius: 15px;
+							padding: 2em;
+							box-shadow: 0 4px 15px rgba(54,79,107,0.1);
+							transition: all 0.3s ease;
+							position: relative;
+							overflow: hidden;
+						}
+						.education-item::before {
+							content: '';
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 4px;
+							height: 100%;
+							background: #364f6b;
+							border-radius: 2px;
+						}
+						.education-item:hover {
+							transform: translateY(-5px);
+							box-shadow: 0 8px 20px rgba(54,79,107,0.15);
+						}
+						.degree-type {
+							font-size: 1.2em;
+							color: #364f6b;
+							font-weight: 600;
+							margin-bottom: 0.5em;
+						}
+						.university-name {
+							font-size: 1.1em;
+							color: #2c3e50;
+							margin-bottom: 1em;
+						}
+						.education-details {
+							display: grid;
+							gap: 1em;
+							margin-top: 1.5em;
+							background: #f8f9fa;
+							padding: 1.2em;
+							border-radius: 10px;
+						}
+						.detail-row {
+							display: grid;
+							grid-template-columns: 120px 1fr;
+							gap: 1em;
+							align-items: baseline;
+						}
+						.detail-label {
+							color: #666;
+							font-weight: 500;
+							font-size: 0.95em;
+						}
+						.detail-value {
+							color: #2c3e50;
+							font-size: 1em;
+						}
+						@media screen and (max-width: 768px) {
+							.education-item {
+								padding: 1.5em;
+							}
+							.detail-row {
+								grid-template-columns: 1fr;
+								gap: 0.3em;
+							}
+						}
+						.education-table tr:last-child td {
+							border-bottom: none;
+						}
+						.education-table tr:hover td {
+							background: #f8f9fa;
+						}
+
+						.education-table tr:last-child td:first-child {
+							border-bottom-left-radius: 10px;
+						}
+						.education-table tr:last-child td:last-child {
+							border-bottom-right-radius: 10px;
+						}
+					</style>
+						.education-table-wrapper {
+							background: white;
+							border-radius: 10px;
+							padding: 1.5em;
+							box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+							margin-bottom: 2em;
+						}
+						.education-table {
+							width: 100%;
+							border-collapse: separate;
+							border-spacing: 0;
+						}
+						.education-table th {
+							background: #2c3e50;
+							color: white;
+							font-size: 1.1em;
+							font-weight: 600;
+							padding: 1em;
+							text-align: left;
+							letter-spacing: 0.05em;
+							border: none;
+						}
+						.education-table th:first-child {
+							border-top-left-radius: 8px;
+						}
+						.education-table th:last-child {
+							border-top-right-radius: 8px;
+						}
+						.education-table td {
+							padding: 1em;
+							font-size: 1.05em;
+							border-bottom: 1px solid #e9ecef;
+							color: #444;
+							background: white;
+						}
+						.education-table tr:hover td {
+							background: #f8f9fa;
+						}
+						.education-table tr:last-child td:first-child {
+							border-bottom-left-radius: 8px;
+						}
+						.education-table tr:last-child td:last-child {
+							border-bottom-right-radius: 8px;
+						}
+						.thesis-section {
+							background: white;
+							border-radius: 8px;
+							padding: 1.5em;
+							margin-top: 2em;
+							box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+							border-left: 4px solid #2c3e50;
+						}
+						.thesis-heading {
+							color: #2c3e50;
+							font-size: 1.3em;
+							font-weight: 600;
+							margin-bottom: 0.8em;
+							letter-spacing: 0.05em;
+						}
+						.thesis-text {
+							color: #444;
+							font-size: 1.1em;
+							line-height: 1.6;
+						}
+					</style>
 					<div class="content" style="text-align: left;">
-						<div class="table-wrapper">
-							<table>
-								<thead>
-									<tr style="color: #ff6b6b; font-weight: bold;">
-										<th>Level</th>
-										<th>University/Institute</th>
-										<th>Period</th>
-										<th>GPA</th>
-										<th>Major/Field of study</th>
-										<th>Degree granted</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Master Degree</td>
-										<td>Chulalongkorn University</td>
-										<td>May 31, 2005 - Oct 30, 2007</td>
-										<td>4.00</td>
-										<td>Nursing Administration</td>
-										<td>Master of Nursing Science</td>
-									</tr>
-									<tr>
-										<td>Baccalaureate Degree</td>
-										<td>Mahidol University</td>
-										<td>June 1998 - Feb 2002</td>
-										<td>3.29</td>
-										<td>Nursing Science</td>
-										<td>Bachelor of Nursing Science</td>
-									</tr>
-								</tbody>
+						<div class="education-table-wrapper">
+							<table class="education-table">
+								<tr>
+									<th>Degree</th>
+									<th>University</th>
+									<th>Major</th>
+									<th>Period</th>
+									<th>GPA</th>
+								</tr>
+								<tr>
+									<td>Master of Nursing Science</td>
+									<td>Chulalongkorn University</td>
+									<td>Nursing Administration</td>
+									<td>2005 - 2007</td>
+									<td>4.00</td>
+								</tr>
+								<tr>
+									<td>Bachelor of Nursing Science</td>
+									<td>Mahidol University</td>
+									<td>Nursing Science</td>
+									<td>1998 - 2002</td>
+									<td>3.29</td>
+								</tr>
 							</table>
 						</div>
-						<div class="thesis">
-							<h3>Thesis</h3>
-							<p>A study of leadership of nursing director during 2008 – 2017</p>
+
+						<div class="thesis-section">
+							<div class="thesis-heading">Thesis</div>
+							<div class="thesis-text">A study of leadership of nursing director during 2008 – 2017</div>
 						</div>
 					</div>
 				</section>
 
 				<!-- Experience -->
-				<section id="experience" class="main style4">
+				<section id="experience" class="main style4 extended">
 					<header class="major">
 						<span class="icon solid fa-briefcase" style="font-size: 2em; width: 2em; height: 2em; line-height: 2em; background: #845ef7; color: white; border-radius: 50%; margin: 0 auto;"></span>
 						<h2>Work Experience</h2>
@@ -146,19 +583,26 @@
 						<div class="timeline" style="margin: 2em 0;">
 							<style>
 								.experience-item {
-									margin-bottom: 2em;
-									padding-left: 2em;
+									margin-bottom: 1em;
+									padding: 1em 1.2em 1em 2em;
 									position: relative;
+									background: #f8f7ff;
+									border-radius: 8px;
+									transition: background-color 0.3s ease;
+								}
+								.experience-item:hover {
+									background: #f0edff;
 								}
 								.experience-item::before {
 									content: '';
 									position: absolute;
-									left: 0;
-									top: 0.5em;
-									width: 12px;
-									height: 12px;
+									left: 0.5em;
+									top: 1.7em;
+									width: 10px;
+									height: 10px;
 									background: #845ef7;
 									border-radius: 50%;
+									box-shadow: 0 0 0 3px #e7e3ff;
 								}
 								.experience-date {
 									color: #845ef7;
@@ -166,14 +610,18 @@
 									margin-bottom: 0.5em;
 									display: inline-block;
 									min-width: 180px;
+									font-size: 1.1em;
 								}
 								.experience-title {
 									font-weight: bold;
 									margin-bottom: 0.3em;
+									color: #2a2a2a;
+									font-size: 1.1em;
 								}
 								.experience-company {
-									color: #666;
+									color: #555;
 									font-style: italic;
+									font-size: 1em;
 								}
 							</style>
 							<div class="experience-list">
@@ -237,190 +685,694 @@
 					</header>
 					<div class="content" style="text-align: left;">
 						<div class="features">
-							<section>
-								<h3 style="color: #f76707; font-weight: bold;">Current Positions</h3>
-								<ul>
-									<li><strong style="color: #f76707;">2015 – Present:</strong> Committee Member of Development Hospital Information System (i-med), Bangkok Hospital Phuket</li>
-									<li><strong style="color: #f76707;">2015 – Present:</strong> Secretary and Committee Member of Institutional Review Board (IRB), Bangkok Hospital Phuket</li>
-									<li><strong style="color: #f76707;">2013 – Present:</strong> Secretary and Committee Member of Research Development, Bangkok Hospital Phuket</li>
-									<li><strong style="color: #f76707;">2012 - Present:</strong> Committee Member of Non Clinical Rapid Improvement Committee, Bangkok Hospital Phuket</li>
-									<li><strong style="color: #f76707;">2012 - Present:</strong> Committee Member of Health Promotion Hospital, Bangkok Hospital Phuket</li>
-									<li><strong style="color: #f76707;">2011 - Present:</strong> Committee Member of Quality Improvement Performance Management in Bangkok Hospital Phuket</li>
-								</ul>
-							</section>
-							<section>
-								<h3 style="color: #f76707; font-weight: bold;">Previous Positions</h3>
-								<ul>
-									<li>Committee Member of Continuous Quality Improvement, Contact Center Department, Bumrungrad Hospital (2009 - 2011)</li>
-									<li>Committee Member of In-service Education, Medicine Department, Ramathibodi University Hospital (2008 - 2009)</li>
-									<li>Committee Member of Prevention and Health Promotion, Ramathibodi University Hospital (2003 - 2005)</li>
-									<li>Hospital Service Voluntary Facilitator (Blue Angel), Ramathibodi University Hospital (2003 - 2004)</li>
-									<li>Member of Thailand Nursing Council (2002 - present)</li>
-									<li>Member of Thai Nurses Association (2002 - present)</li>
-								</ul>
-							</section>
+							<style>
+								.activity-table {
+									width: 100%;
+									border-collapse: separate;
+									border-spacing: 0 0.5em;
+								}
+								.activity-table tr {
+									background: #fff9f5;
+									transition: background-color 0.3s ease;
+								}
+								.activity-table tr:hover {
+									background: #fff0e6;
+								}
+								.activity-table td {
+									padding: 1em;
+									border: none;
+								}
+								.activity-table td:first-child {
+									color: #d9480f;
+									font-weight: bold;
+									white-space: nowrap;
+									width: 140px;
+									background: #ffe8d9;
+									border-radius: 4px;
+								}
+								.activity-table td:last-child {
+									color: #2d2d2d;
+									position: relative;
+									padding-left: 1.5em;
+								}
+								.activity-table td:last-child::before {
+									content: '•';
+									position: absolute;
+									left: 0.5em;
+									color: #f76707;
+									font-weight: bold;
+								}
+								.activity-section {
+									margin-bottom: 2em;
+									background: white;
+									padding: 1.5em;
+									border-radius: 8px;
+									box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+								}
+								.activity-header {
+									background: #f76707;
+									color: white;
+									padding: 0.8em 1.2em;
+									border-radius: 6px;
+									margin-bottom: 1.5em;
+									font-size: 1.2em;
+									font-weight: bold;
+									text-transform: uppercase;
+									letter-spacing: 1px;
+									position: relative;
+								}
+								.activity-header::after {
+									content: '';
+									position: absolute;
+									bottom: -8px;
+									left: 20px;
+									width: 0;
+									height: 0;
+									border-left: 8px solid transparent;
+									border-right: 8px solid transparent;
+									border-top: 8px solid #f76707;
+								}
+							</style>
+							<div class="activity-section">
+								<div class="activity-header">Current Positions</div>
+								<table class="activity-table">
+									<tr>
+										<td>2015 – Present</td>
+										<td>Committee Member of Development Hospital Information System (i-med), Bangkok Hospital Phuket</td>
+									</tr>
+									<tr>
+										<td>2015 – Present</td>
+										<td>Secretary and Committee Member of Institutional Review Board (IRB), Bangkok Hospital Phuket</td>
+									</tr>
+									<tr>
+										<td>2013 – Present</td>
+										<td>Secretary and Committee Member of Research Development, Bangkok Hospital Phuket</td>
+									</tr>
+									<tr>
+										<td>2012 - Present</td>
+										<td>Committee Member of Non Clinical Rapid Improvement Committee, Bangkok Hospital Phuket</td>
+									</tr>
+									<tr>
+										<td>2012 - Present</td>
+										<td>Committee Member of Health Promotion Hospital, Bangkok Hospital Phuket</td>
+									</tr>
+									<tr>
+										<td>2011 - Present</td>
+										<td>Committee Member of Quality Improvement Performance Management in Bangkok Hospital Phuket</td>
+									</tr>
+								</table>
+							</div>
+							<div class="activity-section">
+								<div class="activity-header">Previous Positions</div>
+								<table class="activity-table">
+									<tr>
+										<td>2009 - 2011</td>
+										<td>Committee Member of Continuous Quality Improvement, Contact Center Department, Bumrungrad Hospital</td>
+									</tr>
+									<tr>
+										<td>2008 - 2009</td>
+										<td>Committee Member of In-service Education, Medicine Department, Ramathibodi University Hospital</td>
+									</tr>
+									<tr>
+										<td>2003 - 2005</td>
+										<td>Committee Member of Prevention and Health Promotion, Ramathibodi University Hospital</td>
+									</tr>
+									<tr>
+										<td>2003 - 2004</td>
+										<td>Hospital Service Voluntary Facilitator (Blue Angel), Ramathibodi University Hospital</td>
+									</tr>
+									<tr>
+										<td>2002 - Present</td>
+										<td>Member of Thailand Nursing Council</td>
+									</tr>
+									<tr>
+										<td>2002 - Present</td>
+										<td>Member of Thai Nurses Association</td>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</section>
 
-				<!-- Publications & Presentations -->
-				<section id="presentations" class="main style6">
+				<!-- Scholarly Works & Conference Presentations -->
+				<section id="publications" class="main style6">
 					<header class="major">
-						<span class="icon solid fa-book" style="font-size: 2em; width: 2em; height: 2em; line-height: 2em; background: #e64980; color: white; border-radius: 50%; margin: 0 auto;"></span>
-						<h2>Publications & Presentations</h2>
+						<span class="icon solid fa-graduation-cap" style="font-size: 2em; width: 2em; height: 2em; line-height: 2em; background: #e64980; color: white; border-radius: 50%; margin: 0 auto;"></span>
+						<h2 class="section-title">Scholarly Works & Conference Presentations</h2>
+						<p class="major-subtitle">Research Publications and Academic Contributions</p>
 					</header>
-					<div class="content" style="text-align: left;">
-						<div class="spotlight">
-							<div class="content">
-								<h3 style="color: #e64980; font-weight: bold;">Publications</h3>
-								<ul class="alt">
-									<li>
-										<strong style="color: #e64980;">2023:</strong> Academic Medical Article in Hospital Management Asia
-										<br><em>"Bangkok Hospital Phuket's innovative approach to pain management"</em>
-										<br><a href="https://www.hospitalmanagementasia.com/patient-experience/bangkok-hospital-phukets-innovative-approach-to-pain-management/" target="_blank">View Article</a>
-									</li>
-									<li>
-										<strong style="color: #e64980;">2008:</strong> Research Publication
-										<br><em>"A study of leadership of nursing director during 2008 – 2017"</em>
-										<br>Published and approved by Thai Nursing Council
-									</li>
-								</ul>
+					<style>
+						.publications-container {
+							max-width: 1200px;
+							margin: 0 auto;
+							padding: 2em;
+						}
+						.publication-item {
+							background: #fff;
+							border-radius: 12px;
+							padding: 1.8em;
+							margin-bottom: 2em;
+							border-left: 5px solid #e64980;
+							box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+							transition: all 0.3s ease;
+						}
+						.publication-item:hover {
+							transform: translateX(5px);
+							box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+						}
+						.publication-year {
+							color: #e64980;
+							font-size: 1.3em;
+							font-weight: 700;
+							margin-bottom: 1em;
+							display: flex;
+							align-items: center;
+							gap: 0.5em;
+						}
+						.publication-title {
+							font-size: 1.1em;
+							font-weight: 500;
+							color: #2c3e50;
+							margin-bottom: 0.8em;
+							line-height: 1.5;
+						}
+						.publication-source {
+							color: #666;
+							font-style: italic;
+							margin-bottom: 1em;
+						}
+						.publication-link {
+							display: inline-flex;
+							align-items: center;
+							padding: 0.5em 1em;
+							background: #fce9ef;
+							color: #e64980;
+							border-radius: 20px;
+							text-decoration: none;
+							font-weight: 600;
+							transition: all 0.2s ease;
+							gap: 0.5em;
+						}
+						.publication-link:hover {
+							background: #e64980;
+							color: white;
+							transform: translateY(-2px);
+						}
+						@media screen and (max-width: 736px) {
+							.publications-container {
+								padding: 1em;
+							}
+							.publication-item {
+								padding: 1.5em;
+								margin-bottom: 1.5em;
+							}
+						}
+					</style>
+					<div class="content">
+						<div class="publications-container">
+							<div class="publication-item">
+								<div class="publication-year">2023</div>
+								<div class="publication-title">Bangkok Hospital Phuket's innovative approach to pain management</div>
+								<div class="publication-source">Academic Medical Article in Hospital Management Asia</div>
+								<a href="https://www.hospitalmanagementasia.com/patient-experience/bangkok-hospital-phukets-innovative-approach-to-pain-management/" target="_blank" class="publication-link">
+									<span class="icon solid fa-external-link-alt"></span>
+									View Article
+								</a>
+							</div>
+							
+							<div class="publication-item">
+								<div class="publication-year">2008</div>
+								<div class="publication-title">A study of leadership of nursing director during 2008 – 2017</div>
+								<div class="publication-source">Research Publication - Published and approved by Thai Nursing Council</div>
+							</div>
+						</div>
+					</div>
 
-								<h3 style="color: #e64980; font-weight: bold;">Conference Presentations</h3>
-								<ul class="alt">
-									<li>
-										<strong style="color: #e64980;">2025:</strong> 
-										<br>HA National Forum (24th), Impact Forum Muang Thong Thani
-										<br><em>"การนำการเปลี่ยนแปลงด้วยโมเดล ADKAR การพัฒนาและเชื่อมโยงระบบ การพยาบาล โรงพยาบาลกรุงเทพในจังหวัดภูเก็ต"</em>
-										<br>Runner-up Award in Integrated Operational and Key System Management category
-									</li>
-									<li>
-										<strong style="color: #e64980;">2024:</strong>
-										<ul>
-											<li>Hospital Management Asia 2024, Bali, Indonesia
-												<br><em>"Embracing Excellence: Leading Change with ADKAR and Navigating Nursing Transformations at Bangkok Hospitals in Phuket"</em>
-												<br>Role: Facilitator and Nurse Executive Committee member
-											</li>
-											<li>HA National Forum (24th)
-												<br><em>"A-P-2S: STATE-OF-ART ACUTE PAIN SERVICE MANAGEMENT IN ORTHOPEDIC CENTER OF EXCELLENCE (CoE)"</em>
-												<br>Runner-up Award in Effective Care Service category
-											</li>
-										</ul>
-									</li>
-									<li>
-										<strong>2023:</strong> Hospital Management Asia, Kuala Lumpur, Malaysia
-										<br><em>"A-P-2S: State-of-the-Art Acute Pain Service Management in the Orthopedic Center of Excellence (CoE)"</em>
-										<br>Winner of Excellence Award (Project Owner)
-									</li>
-									<li>
-										<strong>2019:</strong> Hospital Management Asia, Hanoi, Vietnam
-										<br><em>"The UnDA Power Synergy: Comprehensive Daily Management System toward World-Class Excellence"</em>
-										<br>Winner of Excellence Award (Project Facilitator and Secretary)
-									</li>
-									<li>
-										<strong>2015:</strong> Hospital Management Asia, Yangon, Myanmar
-										<br><em>"Emerging Grandeur Niche in Chinese Wellness Tourism, Marketing, PR or Promotional"</em>
-										<br>Winner of Excellence Award (Facilitator)
-									</li>
-									<li>
-										<strong>2014:</strong> Hospital Management Asia, Cebu, Philippines
-										<ul>
-											<li><em>"Happy Life & Happy Work Project"</em> - Winner of Excellence Award in Human Resource Development</li>
-											<li><em>"Evolving to the next chapter of medical-equipment management and maintenance through N Smart Database Online and QR Code program"</em> - Winner of Excellence Award in Bio Medical Equipment / Facilities improvement</li>
-											<li><em>"3P for your Heart: Public Private Partnership"</em> - Winner of Excellence Award in Innovations in Hospital Management and Governance</li>
-										</ul>
-									</li>
-								<dt>2025</dt>
-								<dd>การนำการเปลี่ยนแปลงด้วยโมเดล ADKAR การพัฒนาและเชื่อมโยงระบบ การพยาบาล โรงพยาบาลกรุงเทพในจังหวัดภูเก็ต รางวัลรองชนะเลิศ หมวด Integrated Operational and Key System Management การนำเสนอผลงานการพัฒนาคุณภาพ HA National Forum ประจำปี 2567 ครั้งที่ 24 ณ อิมแพคฟอรั่ม เมืองทองธานี จัดโดย สถาบันรับรองคุณภาพสถานพยาบาล (สรพ.)</dd>
-								
-								<dt>2024</dt>
-								<dd>
-									<ul>
-										<li>Embracing Excellence: Leading Change with ADKAR and Navigating Nursing Transformations at Bangkok Hospitals in Phuket. Hospital Management Asia 2024 as Facilitator and member of Nurse Executive Committee in Bali, Indonesia</li>
-										<li>A-P-2S: STATE-OF-ART ACUTE PAIN SERVICE MANAGEMENT IN ORTHOPEDIC CENTER OF EXCELLENCE (CoE) รางวัลรองชนะเลิศ หมวด Effective Care Service การนำเสนอผลงานการพัฒนาคุณภาพ HA National Forum ประจำปี 2567 ครั้งที่ 24 ณ อิมแพคฟอรั่ม เมืองทองธานี จัดโดย สถาบันรับรองคุณภาพสถานพยาบาล (สรพ.)</li>
-									</ul>
-								</dd>
-								
-								<dt>2023</dt>
-								<dd>A-P-2S: State-of-the-Art Acute Pain Service Management in the Orthopedic Center of Excellence (CoE) towards Enhanced Clinical Effectiveness and Value-Based Healthcare, Hospital Management Asia 2023 as Owner Project (Winner of Excellence Award) in Kuala Lumpur, Malaysia</dd>
-								
-								<dt>2019</dt>
-								<dd>The UnDA Power Synergy: Comprehensive Daily Management System toward World-Class Excellence Hospital Management Asia 2023 as Facilitator and secretory of project (Winner of Excellence Award) in Hanoi, Vietnam</dd>
-								
-								<dt>2015</dt>
-								<dd>Emerging Grandeur Niche in Chinese Wellness Tourism, Marketing, PR or Promotional, Hospital Management Asia 2015 as Facilitator (Winner of Excellence Award) in Yangon, Myanmar</dd>
-								
-								<dt>2014</dt>
-								<dd>
-									<ul>
-										<li>Happy Life & Happy Work Project, Human Resource Development, Hospital Management Asia 2014 as Facilitator (Winner of Excellence Award) in Cebu, Philippines</li>
-										<li>Evolving to the next chapter of medical-equipment management and maintenance through N Smart Database Online and QR Code program, Bio Medical Equipment / Facilities improvement, Hospital Management Asia 2014 as Facilitator (Winner of Excellence Award) in Cebu, Philippines</li>
-										<li>3P for your Heart: Public Private Partnership made cardiac care accessible to heart patients in need through the synergy of hospitals in upper southern Thailand, Innovations in Hospital Management and Governance, Hospital Management Asia 2014 as Facilitator (Winner of Excellence Award) in Cebu, Philippines</li>
-									</ul>
-								</dd>
-								
-								<dt>2013</dt>
-								<dd>
-									<ul>
-										<li>Be healthy Fair in Bangkok Hospital-Phuket Project, Marketing, PR or Promotional, Hospital Management Asia 2013 as Facilitator (Winner of Excellence Award) in Bangkok, Thailand</li>
-										<li>One stop service for check up in Wellness Center, Bio Medical Equipment / Facilities improvement Hospital Management Asia 2013 as Facilitator (Winner of Excellence Award) in Bangkok, Thailand</li>
-									</ul>
-								</dd>
-								
-								<dt>2012</dt>
-								<dd>Comprehensive Mobile Check Up Beside You Project, Marketing, PR or Promotional, Hospital Management Asia 2012 as Facilitator (Winner of Gold Award) in Hanoi, Vietnam</dd>
-								
-								<dt>2006</dt>
-								<dd>As the seminar leader in scholarly seminar: Routine to Research, Faculty of nursing, Chulalongkorn University, Oct 6, 2006</dd>
+								<style>
+									.presentations-section {
+										margin-top: 3em;
+									}
+									.presentations-header {
+										text-align: center;
+										margin-bottom: 2em;
+									}
+									.presentations-header h3 {
+										color: #e64980;
+										font-size: 1.8em;
+										font-weight: bold;
+										margin-bottom: 0.5em;
+										position: relative;
+										display: inline-block;
+									}
+									.presentations-header h3::after {
+										content: '';
+										position: absolute;
+										bottom: -10px;
+										left: 50%;
+										transform: translateX(-50%);
+										width: 60px;
+										height: 3px;
+										background: #e64980;
+										border-radius: 2px;
+									}
+									.presentation-item {
+										background: #fff;
+										padding: 2em;
+										margin-bottom: 2em;
+										border-radius: 15px;
+										box-shadow: 0 4px 15px rgba(230, 73, 128, 0.08);
+										transition: all 0.3s ease;
+										border: 1px solid rgba(230, 73, 128, 0.1);
+										position: relative;
+										overflow: hidden;
+									}
+									.presentation-item::before {
+										content: '';
+										position: absolute;
+										top: 0;
+										left: 0;
+										width: 5px;
+										height: 100%;
+										background: #e64980;
+										border-radius: 3px 0 0 3px;
+									}
+									.presentation-item:hover {
+										transform: translateX(5px);
+										box-shadow: 0 6px 20px rgba(230, 73, 128, 0.12);
+									}
+									.event-name {
+										color: #e64980;
+										font-size: 1.2em;
+										font-weight: bold;
+										margin-bottom: 0.8em;
+										display: flex;
+										align-items: center;
+										gap: 0.5em;
+									}
+									.event-name::before {
+										content: '🎯';
+										font-size: 1.1em;
+									}
+									.project-title {
+										color: #2c3e50;
+										font-size: 1.1em;
+										line-height: 1.6;
+										margin: 0.8em 0;
+										padding: 0.8em 1.2em;
+										background: #fafafa;
+										border-radius: 8px;
+										border-left: 4px solid #e64980;
+									}
+									.award-info {
+										color: #2c3e50;
+										font-size: 1em;
+										margin-top: 1em;
+										padding: 0.8em;
+										background: #fff8fa;
+										border-radius: 8px;
+										display: flex;
+										align-items: center;
+										gap: 0.5em;
+									}
+									.location {
+										color: #4a90a0;
+										font-size: 1em;
+										font-weight: 500;
+										margin: 0.5em 0;
+										display: flex;
+										align-items: center;
+										gap: 0.5em;
+									}
+									.location::before {
+										content: '📍';
+										font-size: 1.1em;
+									}
+									.year-badge {
+										position: relative;
+										display: inline-flex;
+										align-items: center;
+										background: #e64980;
+										color: #fff;
+										padding: 0.4em 1em;
+										border-radius: 20px;
+										font-weight: 600;
+										margin-bottom: 1em;
+										box-shadow: 0 2px 8px rgba(230, 73, 128, 0.2);
+									}
+									.year-badge::before {
+										content: '📅';
+										margin-right: 0.5em;
+									}
+									@media screen and (max-width: 736px) {
+										.presentation-item {
+											padding: 1.5em;
+										}
+										.project-title {
+											padding: 0.6em 1em;
+										}
+									}
+								</style>
+								<div class="presentations-section">
+									<div class="presentations-header">
+										<h3>Conference Presentations</h3>
+										<p>Notable speaking engagements and academic contributions</p>
+									</div>
+								<div class="presentation-item">
+									<div class="year-badge">2025</div>
+									<div class="event-name">HA National Forum (24th)</div>
+									<div class="location">Impact Forum Muang Thong Thani</div>
+									<div class="project-title">"การนำการเปลี่ยนแปลงด้วยโมเดล ADKAR การพัฒนาและเชื่อมโยงระบบ การพยาบาล โรงพยาบาลกรุงเทพในจังหวัดภูเก็ต"</div>
+									<div class="award-info">🏆 Runner-up Award in Integrated Operational and Key System Management category</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2024</div>
+									<div class="event-name">Hospital Management Asia 2024</div>
+									<div class="location">Bali, Indonesia</div>
+									<div class="project-title">"Embracing Excellence: Leading Change with ADKAR and Navigating Nursing Transformations at Bangkok Hospitals in Phuket"</div>
+									<div class="award-info">Role: Facilitator and Nurse Executive Committee member</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2024</div>
+									<div class="event-name">HA National Forum (24th)</div>
+									<div class="project-title">"A-P-2S: STATE-OF-ART ACUTE PAIN SERVICE MANAGEMENT IN ORTHOPEDIC CENTER OF EXCELLENCE (CoE)"</div>
+									<div class="award-info">🏆 Runner-up Award in Effective Care Service category</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2023</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Kuala Lumpur, Malaysia</div>
+									<div class="project-title">"A-P-2S: State-of-the-Art Acute Pain Service Management in the Orthopedic Center of Excellence (CoE)"</div>
+									<div class="award-info">🏆 Winner of Excellence Award (Project Owner)</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2019</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Hanoi, Vietnam</div>
+									<div class="project-title">"The UnDA Power Synergy: Comprehensive Daily Management System toward World-Class Excellence"</div>
+									<div class="award-info">🏆 Winner of Excellence Award (Project Facilitator and Secretary)</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2015</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Yangon, Myanmar</div>
+									<div class="project-title">"Emerging Grandeur Niche in Chinese Wellness Tourism, Marketing, PR or Promotional"</div>
+									<div class="award-info">🏆 Winner of Excellence Award (Facilitator)</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2014</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Cebu, Philippines</div>
+									<div class="project-title">"Happy Life & Happy Work Project"</div>
+									<div class="award-info">🏆 Winner of Excellence Award in Human Resource Development</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2014</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Cebu, Philippines</div>
+									<div class="project-title">"Evolving to the next chapter of medical-equipment management and maintenance through N Smart Database Online and QR Code program"</div>
+									<div class="award-info">🏆 Winner of Excellence Award in Bio Medical Equipment / Facilities improvement</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2014</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Cebu, Philippines</div>
+									<div class="project-title">"3P for your Heart: Public Private Partnership"</div>
+									<div class="award-info">🏆 Winner of Excellence Award in Innovations in Hospital Management and Governance</div>
+								</div>
+								<div class="presentation-item">
+									<div class="year-badge">2013</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Bangkok, Thailand</div>
+									<div class="project-title">"Be healthy Fair in Bangkok Hospital-Phuket Project"</div>
+									<div class="award-info">🏆 Winner of Excellence Award in Marketing, PR or Promotional (Facilitator)</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2013</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Bangkok, Thailand</div>
+									<div class="project-title">"One stop service for check up in Wellness Center"</div>
+									<div class="award-info">🏆 Winner of Excellence Award in Bio Medical Equipment / Facilities improvement (Facilitator)</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2012</div>
+									<div class="event-name">Hospital Management Asia</div>
+									<div class="location">Hanoi, Vietnam</div>
+									<div class="project-title">"Comprehensive Mobile Check Up Beside You Project"</div>
+									<div class="award-info">🏆 Winner of Gold Award in Marketing, PR or Promotional (Facilitator)</div>
+								</div>
+
+								<div class="presentation-item">
+									<div class="year-badge">2006</div>
+									<div class="event-name">Scholarly Seminar: Routine to Research</div>
+									<div class="location">Faculty of nursing, Chulalongkorn University</div>
+									<div class="project-title">Seminar Leader</div>
+									<div class="award-info">October 6, 2006</div>
+								</div>
 							</dl>
 						</div>
 					</section>
 
 					<section>
-						<h2>Scholarly Works</h2>
-						<div class="content">
-							<dl>
-								<dt>2015 – Present</dt>
-								<dd>Committee Member of Development Hospital Information System (i-med), Bangkok Hospital Phuket</dd>
-								
-								<dt>2015 – Present</dt>
-								<dd>Secretary and Committee Member of Institutional Review Board (IRB), Bangkok Hospital Phuket</dd>
-								
-								<dt>2013 – Present</dt>
-								<dd>Secretary and Committee Member of Research Development, Bangkok Hospital Phuket</dd>
-								
-								<dt>2012 - Present</dt>
-								<dd>Committee Member of Non Clinical Rapid Improvement Committee, Bangkok Hospital Phuket</dd>
-								
-								<dt>2012 - Present</dt>
-								<dd>Committee Member of Health Promotion Hospital, Bangkok Hospital Phuket</dd>
-								
-								<dt>2011 - Present</dt>
-								<dd>
-									<ul>
-										<li>Developing of Clinical Practice Guideline and Clinical Pathway used to guide clinical care, Bangkok Phuket Hospital.</li>
-										<li>Sustaining improvement activity in quality and safety</li>
-									</ul>
-								</dd>
-								
-								<dt>2010</dt>
-								<dd>The role of committee member reducing percentage of abandoned call rate in Contact Center at Bumrungrad International Hospital</dd>
-								
-								<dt>2009</dt>
-								<dd>Developing of Work Instruction in standard method of blood collection at the Regional Thai Red Cross Society, Phuket, Thailand</dd>
-								
-								<dt>2008</dt>
-								<dd>A study of leadership of nursing director during 2008 – 2017: research (Publishing and approval with Thai Nursing Council)</dd>
-								
-								<dt>2005 - 2007</dt>
-								<dd>Developing of best practice guidelines in prevention Self-extubation in Critical Care Unit.</dd>
-								
-								<dt>2004 - 2008</dt>
-								<dd>The role of mentor providing advices and consultation for undergraduate nursing students that need to practise clinical nursing in Intermediate Care Unit, Ramathibodi University Hospital, Thailand</dd>
-								
-								<dt>2003 - 2008</dt>
-								<dd>Collaborative partnership for medicine department to develop the project such as bed sore assessment, evaluation and prevention risk infection in the patients who need to insert central line catheter, urinary tract infection prevention, Ventilator associated pneumonia data collection in Intermediate Care Unit, Ramathibodi University Hospital, Thailand</dd>
-							</dl>
+						<style>
+							.scholarly-item {
+								background: #f8faff;
+								padding: 1.5em;
+								margin-bottom: 1.5em;
+								border-radius: 8px;
+								transition: background-color 0.3s ease;
+								border-left: 4px solid #2c3e50;
+								box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+							}
+							.scholarly-item:hover {
+								background: #f0f5ff;
+								box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+							}
+							.scholarly-year {
+								color: #2c3e50;
+								font-size: 1.1em;
+								font-weight: bold;
+								margin-bottom: 0.5em;
+							}
+							.scholarly-title {
+								color: #34495e;
+								font-size: 1.05em;
+								margin: 0.5em 0;
+								font-weight: 500;
+							}
+							.scholarly-institution {
+								color: #666;
+								font-size: 0.95em;
+								font-style: italic;
+								margin-top: 0.5em;
+							}
+							.scholarly-details {
+								color: #555;
+								font-size: 0.95em;
+								margin-top: 0.5em;
+								padding-left: 1em;
+							}
+						</style>
+						<style>
+							.scholarly-works-container {
+								max-width: 1200px;
+								margin: 0 auto;
+								padding: 2em;
+							}
+							.scholarly-item {
+								background: #fff;
+								padding: 1.8em;
+								margin-bottom: 1.5em;
+								border-radius: 15px;
+								box-shadow: 0 4px 15px rgba(54, 79, 107, 0.08);
+								transition: all 0.3s ease;
+								border: 1px solid rgba(54, 79, 107, 0.1);
+								position: relative;
+								overflow: hidden;
+							}
+							.scholarly-item::before {
+								content: '';
+								position: absolute;
+								top: 0;
+								left: 0;
+								width: 5px;
+								height: 100%;
+								background: #364f6b;
+								border-radius: 3px 0 0 3px;
+							}
+							.scholarly-item:hover {
+								transform: translateX(5px);
+								box-shadow: 0 6px 20px rgba(54, 79, 107, 0.12);
+							}
+							.scholarly-year {
+								position: relative;
+								display: inline-flex;
+								align-items: center;
+								background: #364f6b;
+								color: #fff;
+								padding: 0.4em 1em;
+								border-radius: 20px;
+								font-weight: 600;
+								margin-bottom: 1em;
+								box-shadow: 0 2px 8px rgba(54, 79, 107, 0.2);
+							}
+							.scholarly-year::before {
+								content: '🕒';
+								margin-right: 0.5em;
+							}
+							.scholarly-title {
+								color: #2c3e50;
+								font-size: 1.1em;
+								font-weight: 600;
+								line-height: 1.6;
+								margin: 0.8em 0;
+								padding: 0.8em 1.2em;
+								background: #f8f9fa;
+								border-radius: 8px;
+								border-left: 4px solid #364f6b;
+								display: flex;
+								align-items: center;
+								gap: 0.5em;
+							}
+							.scholarly-title::before {
+								content: '👨‍💼';
+								font-size: 1.2em;
+							}
+							.scholarly-institution {
+								color: #4a90a0;
+								font-size: 1em;
+								margin-top: 0.8em;
+								display: flex;
+								align-items: center;
+								gap: 0.5em;
+							}
+							.scholarly-institution::before {
+								content: '🏥';
+								font-size: 1.1em;
+							}
+							.scholarly-details {
+								color: #495057;
+								font-size: 0.95em;
+								margin-top: 1em;
+								padding: 1em;
+								background: #f8f9fa;
+								border-radius: 8px;
+								line-height: 1.6;
+							}
+							.scholarly-details::before {
+								content: '📋';
+								margin-right: 0.5em;
+							}
+							@media screen and (max-width: 736px) {
+								.scholarly-works-container {
+									padding: 1em;
+								}
+								.scholarly-item {
+									padding: 1.5em;
+								}
+								.scholarly-title {
+									padding: 0.6em 1em;
+								}
+							}
+						</style>
+						<h2 class="section-title">Scholarly Works</h2>
+						<div class="content scholarly-works-container">
+							<div class="scholarly-item">
+								<div class="scholarly-year">2015 – Present</div>
+								<div class="scholarly-title">Committee Member of Development Hospital Information System (i-med)</div>
+								<div class="scholarly-institution">Bangkok Hospital Phuket</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2015 – Present</div>
+								<div class="scholarly-title">Secretary and Committee Member of Institutional Review Board (IRB)</div>
+								<div class="scholarly-institution">Bangkok Hospital Phuket</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2013 – Present</div>
+								<div class="scholarly-title">Secretary and Committee Member of Research Development</div>
+								<div class="scholarly-institution">Bangkok Hospital Phuket</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2012 - Present</div>
+								<div class="scholarly-title">Committee Member of Non Clinical Rapid Improvement Committee</div>
+								<div class="scholarly-institution">Bangkok Hospital Phuket</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2012 - Present</div>
+								<div class="scholarly-title">Committee Member of Health Promotion Hospital</div>
+								<div class="scholarly-institution">Bangkok Hospital Phuket</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2011 - Present</div>
+								<div class="scholarly-title">Clinical Practice Development Lead</div>
+								<div class="scholarly-institution">Bangkok Phuket Hospital</div>
+								<div class="scholarly-details">
+									• Developing Clinical Practice Guidelines and Clinical Pathways for patient care<br>
+									• Leading quality and safety improvement initiatives
+								</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2010</div>
+								<div class="scholarly-title">Contact Center Improvement Project Lead</div>
+								<div class="scholarly-institution">Bumrungrad International Hospital</div>
+								<div class="scholarly-details">Reduced abandoned call rates through strategic improvements</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2009</div>
+								<div class="scholarly-title">Blood Collection Protocol Development</div>
+								<div class="scholarly-institution">Regional Thai Red Cross Society, Phuket</div>
+								<div class="scholarly-details">Developed standardized work instructions for blood collection methods</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2008</div>
+								<div class="scholarly-title">Nursing Leadership Research</div>
+								<div class="scholarly-details">Conducted study on nursing director leadership (2008-2017)</div>
+								<div class="scholarly-institution">Published and approved by Thai Nursing Council</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2005 - 2007</div>
+								<div class="scholarly-title">Critical Care Best Practices Development</div>
+								<div class="scholarly-details">Created guidelines for preventing self-extubation in Critical Care Unit</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2004 - 2008</div>
+								<div class="scholarly-title">Clinical Nursing Education Mentor</div>
+								<div class="scholarly-institution">Ramathibodi University Hospital</div>
+								<div class="scholarly-details">Provided guidance to undergraduate nursing students in Intermediate Care Unit</div>
+							</div>
+
+							<div class="scholarly-item">
+								<div class="scholarly-year">2003 - 2008</div>
+								<div class="scholarly-title">Medical Department Quality Improvement Lead</div>
+								<div class="scholarly-institution">Ramathibodi University Hospital</div>
+								<div class="scholarly-details">
+									Led multiple quality initiatives including:<br>
+									• Bed sore assessment protocols<br>
+									• Central line catheter infection prevention<br>
+									• Urinary tract infection prevention<br>
+									• Ventilator-associated pneumonia monitoring
+								</div>
+							</div>
 						</div>
 					</section>
 				</div>

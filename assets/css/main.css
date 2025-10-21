@@ -3760,6 +3760,47 @@ input, select, textarea {
 
 		}
 
+/* Education Table */
+.education-table-wrapper {
+    margin: 0 auto;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.education-table {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    border-collapse: collapse;
+}
+
+.education-table th {
+    background: rgba(76, 92, 150, 0.2);
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 1em;
+}
+
+.education-table td {
+    padding: 0.8em 1em;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.education-table tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+@media screen and (max-width: 736px) {
+    .education-table th,
+    .education-table td {
+        padding: 0.5em;
+        font-size: 0.9em;
+    }
+}
+
 /* Wrapper */
 
 	#wrapper {
