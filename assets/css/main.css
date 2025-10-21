@@ -3767,61 +3767,68 @@ input, select, textarea {
 
 .education-section .table-wrapper {
     margin: 0;
-    background: #1a1f35;  /* พื้นหลังสีน้ำเงินเข้ม */
-    border-radius: 10px;
+    background: #1E2B50;  /* พื้นหลังสีน้ำเงินเข้ม */
+    border-radius: 8px;
     overflow: hidden;
 }
 
 .education-section table {
     margin: 0;
     border-collapse: collapse;
+    width: 100%;
 }
 
 .education-section table th {
-    color: #e6e6e6;  /* สีเทาอ่อน */
+    color: #FFFFFF;
     font-weight: 600;
-    font-size: 1.1em;
-    letter-spacing: 0.05em;
-    background: #2c3654;  /* พื้นหลังสีน้ำเงินกลาง */
-    border-bottom: 2px solid #3d4b75;
+    font-size: 1em;
+    background: #171F3F;  /* พื้นหลังสีน้ำเงินเข้มกว่า */
     text-align: left;
-    padding: 1em;
+    padding: 1.2em 1em;
     text-transform: uppercase;
+    border-bottom: 2px solid #2A3964;
 }
 
 .education-section table td {
     padding: 1em;
     vertical-align: middle;
-    border-bottom: solid 1px #2c3654;
-    color: #b3b3b3;  /* สีเทากลาง */
-    font-size: 1em;
+    border-bottom: solid 1px #2A3964;
+    color: #FFFFFF;
+    font-size: 0.95em;
     line-height: 1.4;
-    font-weight: 400;
 }
 
-.education-section table td:first-child {
-    color: #8bb8e8;  /* สีฟ้าอ่อนนวล */
+.education-section table .level {
+    color: #64B5F6;  /* สีฟ้าสว่าง */
     font-weight: 500;
 }
 
-.education-section table td:nth-child(2) {
-    color: #e8b88b;  /* สีส้มอ่อนนวล */
+.education-section table .university {
+    color: #FFA726;  /* สีส้มสว่าง */
     font-weight: 500;
 }
 
-.education-section table td:nth-child(5) {
-    color: #8bc4e8;  /* สีฟ้าอมเทา */
+.education-section table .degree {
+    color: #64B5F6;  /* สีฟ้าสว่าง */
     font-weight: 500;
 }
 
-.education-section table td:last-child {
-    color: #90c695;  /* สีเขียวอ่อนนวล */
-    font-weight: 500;
+.education-section table .gpa {
+    color: #81C784;  /* สีเขียวสว่าง */
+    font-weight: 600;
+}
+
+.education-section table tbody tr {
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+.education-section table tbody tr:nth-child(odd) {
+    background-color: #1A2547;  /* พื้นหลังแถวคี่ */
 }
 
 .education-section table tbody tr:hover {
-    background-color: #232942;  /* สีน้ำเงินเข้มเมื่อ hover */
-    transition: background-color 0.2s ease;
+    background-color: #243056;  /* สีน้ำเงินเข้มเมื่อ hover */
 }
 
 .education-section table tbody tr {
